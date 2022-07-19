@@ -32,30 +32,34 @@ const App = () => {
   const history = useNavigate();
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [message, setMessage] = useState({ success: false, message: "" });
-
+  
   useEffect(() => {
     api.getUserInfo()
       .then((res) => {
-        setCurrentUser(res);
+        if (loggedIn) {
+          setCurrentUser(res);
+        }
       })
       .catch((err) => console.log(err));
     
     api.getInitialCards()
     .then ((res) => {
-      const cardInfo = res.map((cardData) => {
-        return {
-          name: cardData.name,
-          link: cardData.link,
-          likes: cardData.likes,
-          _id: cardData._id,
-          owner: cardData.owner,
-        }
-      })
-      setCards(cardInfo);
+      if (loggedIn) {
+        const cardInfo = res.map((cardData) => {
+          return {
+            name: cardData.name,
+            link: cardData.link,
+            likes: cardData.likes,
+            _id: cardData._id,
+            owner: cardData.owner,
+          }
+        })
+        setCards(cardInfo);
+      }
     })
     .catch((err) => console.log(err));
 
-  }, []);
+  }, [loggedIn]);
 
 
   function handleEditAvatarClick() {
@@ -204,7 +208,7 @@ const App = () => {
     if (loggedIn) {
         history("/");
     }
-  }, [loggedIn]);
+  }, [history, loggedIn]);
 
   function closeInfoTooltip() {
     setIsInfoTooltipOpen(false);
