@@ -34,18 +34,16 @@ const App = () => {
   const [message, setMessage] = useState({ success: false, message: "" });
   
   useEffect(() => {
-    api.getUserInfo()
-      .then((res) => {
-        if (loggedIn) {
+    if (loggedIn) {
+      api.getUserInfo()
+        .then((res) => {
           setCurrentUser(res);
-        }
-      })
-      .catch((err) => console.log(err));
-    
-    api.getInitialCards()
-    .then ((res) => {
-      if (loggedIn) {
-        const cardInfo = res.map((cardData) => {
+        })
+        .catch((err) => console.log(err));
+      
+      api.getInitialCards()
+      .then ((res) => {
+        const cardInfo = res.reverse().map((cardData) => {
           return {
             name: cardData.name,
             link: cardData.link,
@@ -55,12 +53,10 @@ const App = () => {
           }
         })
         setCards(cardInfo);
-      }
-    })
-    .catch((err) => console.log(err));
-
+      })
+      .catch((err) => console.log(err));
+    }
   }, [loggedIn]);
-
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
