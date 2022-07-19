@@ -31,4 +31,8 @@ IP: 62.84.124.64
 
 Frontend: https://zeddybig.sprint15.nomoredomains.xyz/
 
+<<<<<<< HEAD
 Backend: https://api.zeddybig.sprint15.nomoredomains.xyz/
+=======
+Backend: https://api.zeddybig.sprint15.nomoredomains.xyz/
+>>>>>>> 44e5f29860944a55168b05c1d22b4c5bcacd8272
